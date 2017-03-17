@@ -1,0 +1,52 @@
+Name:           lecm
+Version:        0.0.7
+Release:        1%{?dist}
+Summary:        Let's Encrypt Certificates Manager
+
+License:        ASL 2.0
+URL:            https://github.com/Spredzy/lecm
+Source0:        https://github.com/Spredzy/lecm/archive/%{version}.tar.gz
+
+BuildArch:      noarch
+
+Requires:       acme-tiny
+Requires:       python-prettytable
+Requires:       pyOpenSSL
+Requires:       PyYAML
+Requires:       python2-requests
+
+BuildRequires:  python2-devel
+BuildRequires:  python-setuptools
+
+
+%description
+Let's Encrypt Certificates Manager (lecm) is an utility that allows one
+to manage (generate and renew) Let's Encrypt SSL certificates.
+
+
+%prep
+%autosetup -n %{name}-%{version}
+rm requirements.txt test-requirements.txt
+touch requirements.txt
+
+
+%build
+%{__python2} setup.py build
+
+
+%install
+%{__python2} setup.py install --skip-build --root %{buildroot}
+install -p -D -m 0755 sample/lecm-simple.conf %{buildroot}%{_sysconfdir}/lecm.conf
+
+
+
+%files
+%{_bindir}/lecm
+%{_sysconfdir}/lecm.conf
+%{python2_sitelib}/lecm
+%{python2_sitelib}/lecm-*.egg-info
+
+
+%changelog
+* Fri Mar 17 2017 Tristan Cacqueray - 0.0.7-1
+- Initial packaging
