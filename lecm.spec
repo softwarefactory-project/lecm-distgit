@@ -1,6 +1,6 @@
 Name:           lecm
 Version:        0.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Let's Encrypt Certificates Manager
 
 License:        ASL 2.0
@@ -42,11 +42,14 @@ install -p -D -m 0755 sample/lecm-simple.conf %{buildroot}%{_sysconfdir}/lecm.co
 
 %files
 %{_bindir}/lecm
-%{_sysconfdir}/lecm.conf
+%config(noreplace) %{_sysconfdir}/lecm.conf
 %{python2_sitelib}/lecm
 %{python2_sitelib}/lecm-*.egg-info
 
 
 %changelog
+* Tue Mar 21 2017 Tristan Cacqueray - 0.0.7-2
+- Prevent configuration replace
+
 * Fri Mar 17 2017 Tristan Cacqueray - 0.0.7-1
 - Initial packaging
