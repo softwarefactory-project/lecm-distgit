@@ -1,6 +1,6 @@
 Name:           lecm
 Version:        0.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Let's Encrypt Certificates Manager
 
 License:        ASL 2.0
@@ -26,7 +26,7 @@ to manage (generate and renew) Let's Encrypt SSL certificates.
 
 %prep
 %autosetup -n %{name}-%{version}
-rm requirements.txt test-requirements.txt
+rm -f requirements.txt test-requirements.txt
 touch requirements.txt
 
 
@@ -48,6 +48,9 @@ install -p -D -m 0755 sample/lecm-simple.conf %{buildroot}%{_sysconfdir}/lecm.co
 
 
 %changelog
+* Fri Mar 2 2018 Fabien Boucher <fboucher@redhat.com> - 0.0.7-3
+- Fix build for sdist source
+
 * Tue Mar 21 2017 Tristan Cacqueray - 0.0.7-2
 - Prevent configuration replace
 
